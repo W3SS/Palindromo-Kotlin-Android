@@ -1,4 +1,4 @@
-package xchasingwaves.textopalindromo
+package aquodev.textopalindromo
 
 /**
  * Devuelve un resultado booleano indicando si la palabra introducida

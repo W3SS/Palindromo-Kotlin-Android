@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Contador de palíndromos</string>
+    <string name="placeholderTxtArea">Introduce tu texto aquí</string>
+    <string name="ejemploTxtArea">Ejemplo de prueba: 1001, 1111, 1221, 1331, 1441, 1551, 1661, 1771, 1881 y 1991.\n\nHay 10 cifras palíndromas.</string>
+    <string name="textoBtnContarPalindromos">Contar palabras palíndromas</string>
+    <string name="textoBtnContarFrasesPalind">Contar frases palíndromas</string>
+    <string name="textoBtnLimpiar">Limpiar texto</string>
+    <string name="placeholderMensaje">¡Pruébame!</string>
 </resources>
