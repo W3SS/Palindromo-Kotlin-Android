@@ -11,7 +11,7 @@ Aplicación Android que cuenta palabras o frases palíndromas. Mi primera aplica
 ## Proyecto original
 Se encuentra en mi repositorio `personal`, el programa `TextoPalindromos.java`.
 
-[Enlace directo al archivo](https://github.com/Aquo/personal/blob/master/Java/Paquetes/Programas/TextoPalindromos.java).
+[Enlace directo al archivo](https://github.com/AquoDev/personal/blob/master/Java/Paquetes/Programas/TextoPalindromos.java).
 
 
 ## Detalles sobre el código
