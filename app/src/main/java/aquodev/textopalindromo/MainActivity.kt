@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     // Función que se realiza al pulsar 'btnLimpiar'
     private fun limpiarTexto() {
-        val datos = funcionLimpiarTexto(this)
+        val datos: String? = funcionLimpiarTexto(this)
 
         if (datos != null) establecerMensaje(datos)
     }
