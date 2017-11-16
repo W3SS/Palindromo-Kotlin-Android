@@ -12,56 +12,36 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Control de botones: Contar palabras palíndromas
-        btnContarPalindromos.setOnClickListener {
-            contarYMostrarDatosPalabras()
-            desmarcarTxtArea()
-        }
+        btnContarPalindromos.setOnClickListener { ejecutarFuncion("btnContarPalindromos") }
 
         // Control de botones: Contar frases palíndromas
-        btnContarFrasesPalind.setOnClickListener {
-            contarYMostrarDatosFrases()
-            desmarcarTxtArea()
-        }
+        btnContarFrasesPalind.setOnClickListener { ejecutarFuncion("btnContarFrasesPalind") }
 
         // Control de botones: Limpiar texto
-        btnLimpiar.setOnClickListener {
-            limpiarTexto()
-            desmarcarTxtArea()
-        }
-
-
+        btnLimpiar.setOnClickListener { ejecutarFuncion("btnLimpiar") }
     }
 
-    // Función para cambiar el mensaje que se muestra
+    // Cambia el mensaje que se muestra
     private fun establecerMensaje(s: String) {
         mensaje.text = s
     }
 
-    // Función para que deje de marcarse 'txtArea' si está marcado
-    private fun desmarcarTxtArea() {
-        if (txtArea.hasFocus()) {
-            txtArea.clearFocus()    // Quita la atención al área de texto
+    // Determina la función del botón pulsado y establece el mensaje con los datos
+    private fun ejecutarFuncion(boton: String) {
+        val datos: String? = when (boton) {
+            "btnContarPalindromos" -> funcionPalabras(this)
+            "btnContarFrasesPalind" -> funcionFrases(this)
+            "btnLimpiar" -> funcionLimpiarTexto(this)
+            else -> throw IllegalArgumentException("El botón $boton no existe")
+            // En caso de no existir el botón, se lanza un IAE con el mensaje para
+            // leerlo en el debugger
         }
-    }
-
-    // Función que se ejecuta al pulsar 'btnContarPalindromos'
-    private fun contarYMostrarDatosPalabras() {
-        val datos: String? = funcionPalabras(this)
 
         if (datos != null) establecerMensaje(datos)
-    }
+        // Se establece el mensaje de datos si no se está pulsando el mismo botón
+        // dos veces seguidas (null indica este caso)
 
-    // Función que se ejecuta al pulsar 'btnContarFrasesPalind'
-    private fun contarYMostrarDatosFrases() {
-        val datos: String? = funcionFrases(this)
-
-        if (datos != null) establecerMensaje(datos)
-    }
-
-    // Función que se realiza al pulsar 'btnLimpiar'
-    private fun limpiarTexto() {
-        val datos: String? = funcionLimpiarTexto(this)
-
-        if (datos != null) establecerMensaje(datos)
+        if (txtArea.hasFocus()) txtArea.clearFocus()
+        // Si 'txtArea' está pulsado, es desmarcado
     }
 }
