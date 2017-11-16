@@ -6,6 +6,8 @@ import java.text.Normalizer                             // Para 'normalizarTexto
 
 // Variables para mostrar datos
 private var texto = ""                  // Texto introducido en el área
+private var textoAnterior = ""          // Texto original, guardado para no repetir cálculos
+private var btnRepetido = 0             // Para saber el último botón pulsado (1 y 2 son diferentes)
 private var contador = 0                // Contador de palíndromos, tanto para palabras como para frases
 private var contPalabras = 0            // Contador de palabras en total del texto
 private var contFrases = 0              // Contador de frases en total del texto
@@ -15,15 +17,16 @@ private val finalFrase = '.'            // Caracter final de frase
 /**
  * CONTROL DE BOTONES: btnContarPalindromos
  */
-internal fun funcionPalabras(activity: MainActivity): String {
+internal fun funcionPalabras(activity: MainActivity): String? {
     almacenarTextoOriginal(activity)
 
     return when {
+        textoYaRepetido(1) -> null
         textoVacio() -> "No has introducido ningún texto"
         else -> {
             normalizarTexto()
             contarPalabrasPalindromas()
-            mostrarDatosPalindromos()
+            mostrarDatosPalindromos()   // Esta función devuelve el string con los datos
         }
     }
 }
@@ -93,6 +96,9 @@ private fun mostrarDatosPalindromos(): String {
             }
     )
 
+    btnRepetido = 1
+    // Guardamos el botón (un número arbitrario) para no repetir cálculos si se vuelve a pulsar
+
     return nuevoMensaje.toString()
     // Devuelve el resultado para establecerlo como mensaje
 }
@@ -101,15 +107,16 @@ private fun mostrarDatosPalindromos(): String {
 /**
  * CONTROL DE BOTONES: btnContarFrasesPalind
  */
-internal fun funcionFrases(activity: MainActivity): String {
+internal fun funcionFrases(activity: MainActivity): String? {
     almacenarTextoOriginal(activity)
 
     return when {
+        textoYaRepetido(2) -> null
         textoVacio() -> "No has introducido ninguna frase (las frases han de acabar en punto)"
         else -> {
             normalizarTexto()
             contarFrasesPalindromas()
-            mostrarDatosFrasesPalindromas()
+            mostrarDatosFrasesPalindromas()     // Esta función devuelve el string con los datos
         }
     }
 }
@@ -177,6 +184,8 @@ private fun mostrarDatosFrasesPalindromas(): String {
             }
     )
 
+    btnRepetido = 2
+    // Guardamos el botón (un número arbitrario) para no repetir cálculos si se vuelve a pulsar
     return nuevoMensaje.toString()
 }
 
@@ -191,6 +200,7 @@ internal fun funcionLimpiarTexto(activity: MainActivity): String {
         textoVacio() -> "El texto ya estaba en blanco, introduce algo y prueba"
         else -> {
             activity.txtArea.text.clear()   // Limpia el texto
+            btnRepetido = 0
             "¡Texto en blanco!"
         }
     }
@@ -200,16 +210,24 @@ internal fun funcionLimpiarTexto(activity: MainActivity): String {
 /**
  * FUNCIONES GENERALES (usadas en todos los botones)
  */
-private fun textoVacio() = texto.isEmpty()      // Comprueba si el texto no tiene ningún caracter
+private fun textoVacio() = texto.isEmpty()
+// Comprueba si el texto no tiene ningún caracter
 
+private fun textoYaRepetido(btn: Int): Boolean {
+    return texto == textoAnterior && btnRepetido == btn
+    // Comprueba si es el mismo texto al que ya hemos realizado cálculos
+}
 
 private fun almacenarTextoOriginal(activity: MainActivity) {
     texto = activity.txtArea.text.toString()
     // Se extrae el texto de 'txtArea'
 }
 
-
 private fun normalizarTexto() {
+    textoAnterior = texto
+    // Cuando comprobamos que son textos diferentes, almacenamos el original para evitar cálculos
+    // repetidos al volver a pulsar el mismo botón
+
     texto = texto.toLowerCase().trim()
     // El texto se pasa a minúscula y sin espacios al principio y al final
 

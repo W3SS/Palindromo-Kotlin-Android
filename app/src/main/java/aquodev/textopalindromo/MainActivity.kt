@@ -46,14 +46,16 @@ class MainActivity : AppCompatActivity() {
 
     // Función que se ejecuta al pulsar 'btnContarPalindromos'
     private fun contarYMostrarDatosPalabras() {
-        val datos = funcionPalabras(this)
-        establecerMensaje(datos)
+        val datos: String? = funcionPalabras(this)
+
+        if (datos != null) establecerMensaje(datos)
     }
 
     // Función que se ejecuta al pulsar 'btnContarFrasesPalind'
     private fun contarYMostrarDatosFrases() {
-        val datos = funcionFrases(this)
-        establecerMensaje(datos)
+        val datos: String? = funcionFrases(this)
+
+        if (datos != null) establecerMensaje(datos)
     }
 
     // Función que se realiza al pulsar 'btnLimpiar'
