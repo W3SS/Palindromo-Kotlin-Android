@@ -6,6 +6,7 @@ import java.text.Normalizer                             // Para 'normalizarTexto
 
 // Variables para mostrar datos
 private var texto = ""                  // Texto introducido en el área
+private var textoAnterior = ""          // Texto original, para evitar repetición de cálculos
 private var ultimoBtnPulsado = ""       // Para saber el último botón pulsado
 private var contador = 0                // Contador de palíndromos, tanto para palabras como para frases
 private var contPalabras = 0            // Contador de palabras en total del texto
@@ -20,10 +21,10 @@ internal fun funcionPalabras(activity: MainActivity): String? {
     val esteBoton = "btnContarPalindromos"      // Identificamos el botón pulsado
     almacenarTextoOriginal(activity)            // Pasamos 'MainActivity' a esta función
 
-    if (botonYaPulsado(esteBoton)) {            // Si ya hemos pulsado este botón,
-        return null                             // devolvemos 'null' y cortamos el flujo de la función
-    } else {                                    // En caso contrario,
-        ultimoBtnPulsado = esteBoton            // guardamos el último botón pulsado
+    if (botonYaPulsado(esteBoton) && textoYaRepetido()) {   // Si ya hemos pulsado este botón y el texto es repetido,
+        return null                                         // devolvemos 'null' y cortamos el flujo de la función
+    } else {                                                // En caso contrario,
+        ultimoBtnPulsado = esteBoton                        // guardamos el último botón pulsado
     }
 
     return when {
@@ -113,10 +114,10 @@ internal fun funcionFrases(activity: MainActivity): String? {
     val esteBoton = "btnContarFrasesPalind"     // Identificamos el botón pulsado
     almacenarTextoOriginal(activity)            // Pasamos 'MainActivity' a esta función
 
-    if (botonYaPulsado(esteBoton)) {            // Si ya hemos pulsado este botón,
-        return null                             // devolvemos 'null' y cortamos el flujo de la función
-    } else {                                    // En caso contrario,
-        ultimoBtnPulsado = esteBoton            // guardamos el último botón pulsado
+    if (botonYaPulsado(esteBoton) && textoYaRepetido()) {   // Si ya hemos pulsado este botón y el texto es repetido,
+        return null                                         // devolvemos 'null' y cortamos el flujo de la función
+    } else {                                                // En caso contrario,
+        ultimoBtnPulsado = esteBoton                        // guardamos el último botón pulsado
     }
 
     return when {
@@ -219,10 +220,13 @@ internal fun funcionLimpiarTexto(activity: MainActivity): String? {
 
 
 /**
- * FUNCIONES GENERALES (usadas en todos los botones)
+ * FUNCIONES GENERALES (no son específicas de un botón en concreto)
  */
 private fun textoVacio() = texto.isEmpty()
 // Comprueba si el texto no tiene ningún caracter
+
+private fun textoYaRepetido() = textoAnterior == texto
+// Comprueba si el texto introducido es el mismo que el anterior tras pulsar un botón
 
 private fun botonYaPulsado(esteBoton: String) = ultimoBtnPulsado == esteBoton
 // Comprueba si el botón que se ha pulsado fue el mismo pulsado anteriormente
@@ -233,8 +237,13 @@ private fun almacenarTextoOriginal(activity: MainActivity) {
 }
 
 private fun normalizarTexto() {
-    texto = texto.toLowerCase().trim()
-    // El texto se pasa a minúscula y sin espacios al principio y al final
+    textoAnterior = texto
+    // Se almacena el texto original, en caso de que se pulse el mismo botón dos veces
+    // seguidas y el texto sea diferente los cálculos se hagan
+
+    texto = texto.toLowerCase().trim { !it.isLetterOrDigit() && it != finalFrase }
+    // El texto se pasa a minúscula y sin caracteres que no sean letras o dígitos al principio y
+    // al final (excepto en el caso del caracter que marca el final de una frase)
 
     texto = Normalizer.normalize(texto, Normalizer.Form.NFKD)
     texto = texto.replace("[^\\p{ASCII}]".toRegex(), "")
