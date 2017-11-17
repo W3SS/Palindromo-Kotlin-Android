@@ -12,19 +12,32 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        setProperty("archivesBaseName", "Contador de palíndromos")
         // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix " - DEBUG"
+        }
         release {
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationIdSuffix ".release"
+            versionNameSuffix " - RELEASE"
         }
     }
     buildToolsVersion '27.0.1'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // Esto sirve para cambiar el nombre de la apk según el tipo de build
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "${archivesBaseName} v${variant.versionName}.apk"
+        }
     }
 }
 
