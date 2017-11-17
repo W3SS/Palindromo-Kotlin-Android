@@ -17,9 +17,9 @@ private val finalFrase = '.'            // Caracter final de frase
 /**
  * CONTROL DE BOTONES: btnContarPalindromos
  */
-internal fun funcionPalabras(activity: MainActivity): String? {
+internal fun MainActivity.funcionPalabras(): String? {
     val esteBoton = "btnContarPalindromos"      // Identificamos el botón pulsado
-    almacenarTextoOriginal(activity)            // Pasamos 'MainActivity' a esta función
+    almacenarTextoOriginal()                    // Usamos 'MainActivity' en esta función
 
     if (botonYaPulsado(esteBoton) && textoYaRepetido()) {   // Si ya hemos pulsado este botón y el texto es repetido,
         return null                                         // devolvemos 'null' y cortamos el flujo de la función
@@ -110,9 +110,9 @@ private fun mostrarDatosPalindromos(): String {
 /**
  * CONTROL DE BOTONES: btnContarFrasesPalind
  */
-internal fun funcionFrases(activity: MainActivity): String? {
+internal fun MainActivity.funcionFrases(): String? {
     val esteBoton = "btnContarFrasesPalind"     // Identificamos el botón pulsado
-    almacenarTextoOriginal(activity)            // Pasamos 'MainActivity' a esta función
+    almacenarTextoOriginal()                    // Usamos 'MainActivity' en esta función
 
     if (botonYaPulsado(esteBoton) && textoYaRepetido()) {   // Si ya hemos pulsado este botón y el texto es repetido,
         return null                                         // devolvemos 'null' y cortamos el flujo de la función
@@ -200,13 +200,13 @@ private fun mostrarDatosFrasesPalindromas(): String {
 /**
  * CONTROL DE BOTONES: btnLimpiar
  */
-internal fun funcionLimpiarTexto(activity: MainActivity): String? {
+internal fun MainActivity.funcionLimpiarTexto(): String? {
     val esteBoton = "btnLimpiar"                // Identificamos el botón pulsado
-    almacenarTextoOriginal(activity)            // Pasamos 'MainActivity' a esta función
+    almacenarTextoOriginal()                    // Usamos 'MainActivity' en esta función
 
     return when {
         !textoVacio() -> {                      // Cuando el texto no está vacío,
-            activity.txtArea.text.clear()       // limpia el texto y se avisa
+            txtArea.text.clear()                // limpia el texto y se avisa
             ultimoBtnPulsado = ""               // Todavía no se almacena esta pulsación
             "¡Texto en blanco!"
         }
@@ -231,8 +231,8 @@ private fun textoYaRepetido() = textoAnterior == texto
 private fun botonYaPulsado(esteBoton: String) = ultimoBtnPulsado == esteBoton
 // Comprueba si el botón que se ha pulsado fue el mismo pulsado anteriormente
 
-private fun almacenarTextoOriginal(activity: MainActivity) {
-    texto = activity.txtArea.text.toString()
+private fun MainActivity.almacenarTextoOriginal() {
+    texto = txtArea.text.toString()
     // Se extrae el texto de 'txtArea'
 }
 

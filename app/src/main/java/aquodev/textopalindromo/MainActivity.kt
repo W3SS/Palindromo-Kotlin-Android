@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
     // Determina la función del botón pulsado y establece el mensaje con los datos
     private fun ejecutarFuncion(boton: String) {
         val datos: String? = when (boton) {
-            "btnContarPalindromos" -> funcionPalabras(this)
-            "btnContarFrasesPalind" -> funcionFrases(this)
-            "btnLimpiar" -> funcionLimpiarTexto(this)
+            "btnContarPalindromos" -> funcionPalabras()
+            "btnContarFrasesPalind" -> funcionFrases()
+            "btnLimpiar" -> funcionLimpiarTexto()
             else -> throw IllegalArgumentException("El botón $boton no existe")
             // En caso de no existir el botón, se lanza un IAE con el mensaje para
             // leerlo en el debugger
