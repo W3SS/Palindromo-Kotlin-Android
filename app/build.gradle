@@ -24,8 +24,6 @@ android {
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationIdSuffix ".release"
-            versionNameSuffix " - RELEASE"
         }
     }
     buildToolsVersion '27.0.1'
