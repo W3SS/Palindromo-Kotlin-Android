@@ -132,3 +132,6 @@ fabric.properties
 # Clases Test
 */*/test
 */*/androidTest
+
+# APKs compilados
+*/*/release
