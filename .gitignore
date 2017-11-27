@@ -135,3 +135,6 @@ fabric.properties
 
 # APKs compilados
 */release
+
+# Información para firmar la APK
+release.properties
